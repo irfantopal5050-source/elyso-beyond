@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELYSO BEYOND</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #050505;
+    color: white;
+}
+
+header {
+    padding: 28px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #050505, #17130a);
+    border-bottom: 1px solid #333;
+}
+
+.logo {
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: 6px;
+}
+
+.subtitle {
+    color: #d9a900;
+    margin-top: 8px;
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+.language-box {
+    max-width: 900px;
+    margin: 25px auto 0;
+    padding: 0 20px;
+    text-align: right;
+}
+
+select {
+    background: #111;
+    color: white;
+    border: 1px solid #d9a900;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 15px;
+}
+
+main {
+    max-width: 900px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: linear-gradient(145deg, #111, #191919);
+    border: 1px solid #333;
+    border-radius: 18px;
+    padding: 30px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-top: 0;
+}
+
+h2 {
+    color: #f2c000;
+}
+
+p {
+    font-size: 19px;
+    line-height: 1.7;
+    color: #ddd;
+}
+
+.buttons {
+    margin-top: 25px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.listen {
+    background: #e4b400;
+    color: #000;
+}
+
+.stop {
+    background: #333;
+    color: white;
+}
+
+footer {
+    text-align: center;
+    padding: 35px 20px;
+    color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">ELYSO BEYOND</div>
+    <div class="subtitle">STRANGE PLACES • UNTOLD STORIES • BEYOND THE ORDINARY</div>
+</header>
+
+<div class="language-box">
+    <select id="language" onchange="changeLanguage()">
+        <option value="en">🇬🇧 English</option>
+        <option value="tr">🇹🇷 Türkçe</option>
+    </select>
+</div>
+
+<main>
+    <div class="card">
+
+        <h1 id="title">The Country Completely Surrounded by Another Country</h1>
+
+        <h2 id="topic">LESOTHO</h2>
+
+        <p id="text">
+            Lesotho is one of the strangest countries in the world.
+            It has no coastline and is completely surrounded by another country:
+            South Africa.
+        </p>
+
+        <div class="buttons">
+            <button class="listen" onclick="speakText()">🔊 Listen</button>
+            <button class="stop" onclick="stopSpeaking()">⏹ Stop</button>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    © 2026 ELYSO BEYOND
+</footer>
+
+<script>
+
+const texts = {
+
+    en: {
+        title: "The Country Completely Surrounded by Another Country",
+        topic: "LESOTHO",
+        text: "Lesotho is one of the strangest countries in the world. It has no coastline and is completely surrounded by another country: South Africa."
+    },
+
+    tr: {
+        title: "Başka Bir Ülkeyle Tamamen Çevrili Ülke",
+        topic: "LESOTHO",
+        text: "Lesotho dünyanın en sıra dışı ülkelerinden biridir. Denize kıyısı yoktur ve tamamen başka bir ülke tarafından çevrilidir: Güney Afrika."
+    }
+
+};
+
+function changeLanguage() {
+
+    const language = document.getElementById("language").value;
+
+    document.getElementById("title").textContent = texts[language].title;
+    document.getElementById("topic").textContent = texts[language].topic;
+    document.getElementById("text").textContent = texts[language].text;
+
+    stopSpeaking();
+}
+
+function speakText() {
+
+    stopSpeaking();
+
+    const language = document.getElementById("language").value;
+    const text = texts[language].text;
+
+    const speech = new SpeechSynthesisUtterance(text);
+
+    if (language === "tr") {
+        speech.lang = "tr-TR";
+    } else {
+        speech.lang = "en-US";
+    }
+
+    speech.rate = 0.95;
+    speech.pitch = 1;
+
+    window.speechSynthesis.speak(speech);
+}
+
+function stopSpeaking() {
+    window.speechSynthesis.cancel();
+}
+
+</script>
+
+</body>
+</html>
